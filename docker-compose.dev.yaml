@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+    laravel-skeleton:
+        tty: true
+        image: dodaydream/laravel:latest
+        environment:
+            - DB_HOST=mysql
+            - DB_USERNAME=root
+            - DB_DATABASE=laravel-skeleton
+            - DB_PASSWORD=secret
+        ports:
+            - 5000:3000
+        volumes:
+            - ./:/app
+    mysql:
+        image: 'mysql:5.7.21'
+        environment:
+            - MYSQL_ROOT_PASSWORD=secret
+            - MYSQL_DATABASE=laravel-skeleton
+        ports:
+            - 33065:3306
