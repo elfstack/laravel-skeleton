@@ -72,8 +72,8 @@ class PermissionController extends Controller
         ]);
 
         return [
-            'permission' => $permission->update($sanitized);
-        ]
+            'permission' => $permission->update($sanitized)
+        ];
     }
 
     /**

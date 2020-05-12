@@ -1,3 +1,5 @@
+import index from '../listing'
+
 export default {
     apiPrefix: '/admin/api',
 
@@ -9,5 +11,11 @@ export default {
     },
     getCurrent () {
         return window.axios.get(this.apiPrefix + '/admin-users/current')
+    },
+    index (paramBag) {
+        return index(paramBag, '/admin/api/admin-users')
+    },
+    show (id) {
+        return window.axios.get(this.apiPrefix + '/admin-users/' + id)
     }
 }

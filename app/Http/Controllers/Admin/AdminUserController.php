@@ -20,7 +20,10 @@ class AdminUserController extends Controller
 
     public function index(Request $request)
     {
-        return Listing::create(AdminUser::class)->get($request);
+        return Listing::create(AdminUser::class)
+            ->attachSorting(['id'])
+            ->attachSearching(['name'])
+            ->get($request);
     }
 
     /**
@@ -37,12 +40,14 @@ class AdminUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param AdminUser $adminUser
+     * @return array
      */
-    public function show($id)
+    public function show(AdminUser $adminUser)
     {
-        //
+        return [
+            'admin_user' => $adminUser
+        ];
     }
 
     /**

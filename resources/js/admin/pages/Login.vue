@@ -3,6 +3,11 @@
         <a-layout-content class="p1">laravel-skeleton (dev)</a-layout-content>
         <a-layout-sider width="400" class="p3" theme="light">
             <h1 class="h1">Login</h1>
+            <a-alert
+                message="Invalid credential"
+                banner
+                v-show="showError"
+            />
             <a-form-model ref="login-form" :model="form" :rules="rules">
                 <a-form-model-item has-feedback prop="email">
                     <a-input v-model="form.email" type="email" size="large">
@@ -33,6 +38,7 @@
         name: "Login",
         data () {
             return {
+                showError: false,
                 form: {
                     email: '',
                     password: ''
@@ -52,7 +58,10 @@
             submit () {
                 this.$refs['login-form'].validate(valid => {
                     if (valid) {
-                        this.login(this.form)
+                        this.showError = false
+                        this.login(this.form).catch((e) => {
+                            this.showError = true
+                        })
                     }
                 })
             },

@@ -25,6 +25,11 @@ const router = new VueRouter({
                     component: () => import('../pages/AdminUsers/Index')
                 },
                 {
+                    path: '/manage-access/admin-users/:id',
+                    name: 'AdminUsersShow',
+                    component: () => import('../pages/AdminUsers/Show')
+                },
+                {
                     path: '/manage-access/roles',
                     name: 'RolesIndex',
                     component: () => import('../pages/Roles/Index'),

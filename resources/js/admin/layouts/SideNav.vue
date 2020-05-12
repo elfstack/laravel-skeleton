@@ -1,5 +1,10 @@
 <template>
-    <a-layout-sider width="256">
+    <a-layout-sider
+        width="256"
+        v-model="collapsed"
+        collapsible
+    >
+        <div class="logo h4 center" style="color: #fff;">{{ !collapsed ? 'Laravel Skeleton' : 'LS' }}</div>
         <a-menu
             style="width: 256px"
             theme="dark"
@@ -46,18 +51,15 @@
                 </a-sub-menu>
             </a-sub-menu>
             <a-sub-menu key="sub4">
-                <span slot="title"><a-icon type="setting" /><span>Navigation Three</span></span>
+                <span slot="title"><a-icon type="lock" /><span>Manage Access</span></span>
                 <a-menu-item key="9">
-                    Option 9
+                    <router-link to="/manage-access/admin-users">Admin Users</router-link>
                 </a-menu-item>
                 <a-menu-item key="10">
-                    Option 10
+                    <router-link to="/manage-access/roles">Roles & Permissions</router-link>
                 </a-menu-item>
                 <a-menu-item key="11">
-                    Option 11
-                </a-menu-item>
-                <a-menu-item key="12">
-                    Option 12
+                    Action Log
                 </a-menu-item>
             </a-sub-menu>
         </a-menu>
@@ -69,8 +71,9 @@
         name: "SideNav",
             data() {
                 return {
-                    current: ['mail'],
-                    openKeys: ['sub1'],
+                    current: [],
+                    openKeys: [],
+                    collapsed: false
                 };
             },
             watch: {
@@ -91,5 +94,8 @@
 </script>
 
 <style scoped>
-
+    .logo {
+        height: 64px;
+        line-height: 64px;
+    }
 </style>
