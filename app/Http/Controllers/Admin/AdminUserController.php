@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\AdminUser;
+use App\Utils\Listing;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -11,21 +13,14 @@ class AdminUserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return LengthAwarePaginator
+     * @throws \Exception
      */
-    public function index()
-    {
-        return AdminUser::paginate();
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        return Listing::create(AdminUser::class)->get($request);
     }
 
     /**
@@ -36,7 +31,7 @@ class AdminUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO:
     }
 
     /**
@@ -46,17 +41,6 @@ class AdminUserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

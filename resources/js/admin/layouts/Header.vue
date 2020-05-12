@@ -2,8 +2,8 @@
     <a-layout-header class="header">
         <a-row type="flex"
                justify="space-between">
-            <a-col><div class="logo h4" style="color: #fff;">Laravel Skeleton</div></a-col>
-            <a-col style="color: #fff">
+            <a-col></a-col>
+            <a-col>
                 <a-dropdown :trigger="['click']">
                     <div @click="e => e.preventDefault()">
                         <a-avatar size="large" icon="user" />
@@ -13,10 +13,10 @@
                     </div>
                     <a-menu slot="overlay">
                         <a-menu-item key="0">
-                            <a href="http://www.alipay.com/">1st menu item</a>
+                            <a href="http://www.alipay.com/">My Profile</a>
                         </a-menu-item>
                         <a-menu-item key="1">
-                            <a href="http://www.taobao.com/">2nd menu item</a>
+                            <a href="http://www.alipay.com/">Change Password</a>
                         </a-menu-item>
                         <a-menu-divider />
                         <a-menu-item key="3" @click="logout">
@@ -46,6 +46,10 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+.header {
+    background: #fff;
+    top: 0;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important
+}
 </style>

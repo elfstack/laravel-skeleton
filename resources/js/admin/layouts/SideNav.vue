@@ -1,16 +1,5 @@
 <template>
-<<<<<<< HEAD
-    <a-layout-sider
-        width="256"
-        v-model="collapsed"
-        collapsible
-    >
-        <router-link to="/">
-            <div class="logo h4 center" style="color: #fff;">{{ !collapsed ? 'Laravel Skeleton' : 'LS' }}</div>
-        </router-link>
-=======
     <a-layout-sider width="256">
->>>>>>> d346664... feat: admin login in/out
         <a-menu
             style="width: 256px"
             theme="dark"
@@ -57,17 +46,6 @@
                 </a-sub-menu>
             </a-sub-menu>
             <a-sub-menu key="sub4">
-<<<<<<< HEAD
-                <span slot="title"><a-icon type="lock" /><span>Manage Access</span></span>
-                <a-menu-item key="9">
-                    <router-link to="/manage-access/admin-users">Admin Users</router-link>
-                </a-menu-item>
-                <a-menu-item key="10">
-                    <router-link to="/manage-access/roles">Roles & Permissions</router-link>
-                </a-menu-item>
-                <a-menu-item key="11">
-                    Action Log
-=======
                 <span slot="title"><a-icon type="setting" /><span>Navigation Three</span></span>
                 <a-menu-item key="9">
                     Option 9
@@ -80,7 +58,6 @@
                 </a-menu-item>
                 <a-menu-item key="12">
                     Option 12
->>>>>>> d346664... feat: admin login in/out
                 </a-menu-item>
             </a-sub-menu>
         </a-menu>
@@ -92,14 +69,8 @@
         name: "SideNav",
             data() {
                 return {
-<<<<<<< HEAD
-                    current: [],
-                    openKeys: [],
-                    collapsed: false
-=======
                     current: ['mail'],
                     openKeys: ['sub1'],
->>>>>>> d346664... feat: admin login in/out
                 };
             },
             watch: {
@@ -120,12 +91,5 @@
 </script>
 
 <style scoped>
-<<<<<<< HEAD
-    .logo {
-        height: 64px;
-        line-height: 64px;
-    }
-=======
 
->>>>>>> d346664... feat: admin login in/out
 </style>

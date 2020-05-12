@@ -1,8 +1,8 @@
 <template>
   <a-layout>
-      <admin-header></admin-header>
+      <admin-side-nav></admin-side-nav>
       <a-layout>
-          <admin-side-nav></admin-side-nav>
+          <admin-header></admin-header>
           <a-layout>
               <a-layout-content>
                   <router-view></router-view>

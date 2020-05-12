@@ -18,9 +18,27 @@ const router = new VueRouter({
                     path: '/',
                     name: 'Dashboard',
                     component: () => import('../pages/dashboard/Index')
+                },
+                {
+                    path: '/manage-access/admin-users',
+                    name: 'AdminUsersIndex',
+                    component: () => import('../pages/AdminUsers/Index')
+                },
+                {
+                    path: '/manage-access/roles',
+                    name: 'RolesIndex',
+                    component: () => import('../pages/Roles/Index'),
+                    children: [
+                        {
+                            path: ':id',
+                            name: 'RoleShow',
+                            component: () => import('../pages/Roles/Show')
+                        }
+                    ]
                 }
             ]
-        }
+        },
+
     ]
 })
 
