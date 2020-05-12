@@ -6,9 +6,20 @@ Vue.use(VueRouter)
 const router = new VueRouter({
     routes: [
         {
+            path: '/login',
+            name: 'Login',
+            component: () => import('../pages/Login')
+        },
+        {
             path: '/',
-            name: 'Dashboard',
-            component: () => import('../pages/dashboard/Index')
+            component: () => import('../layouts/App'),
+            children: [
+                {
+                    path: '/',
+                    name: 'Dashboard',
+                    component: () => import('../pages/dashboard/Index')
+                }
+            ]
         }
     ]
 })

@@ -13,6 +13,7 @@ const path = require('path')
  */
 
 mix.js('resources/js/admin/app.js', 'public/js/admin')
+mix.less('resources/js/admin/less/app.less', 'public/css/admin')
 
 mix.webpackConfig({
     resolve: {
