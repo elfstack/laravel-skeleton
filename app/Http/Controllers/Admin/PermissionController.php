@@ -12,16 +12,13 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     * @throws \Exception
+     * @return array
      */
-    public function index(Request $request)
+    public function index()
     {
-        return Listing::create(Permission::class)
-            ->setColumns(['id', 'name', 'guard_name'])
-            ->attachFiltering(['guard_type'])
-            ->get($request);
+        return [
+            'permissions' => Permission::all()
+        ];
     }
 
     /**

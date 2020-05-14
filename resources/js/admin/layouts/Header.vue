@@ -13,13 +13,10 @@
                     </div>
                     <a-menu slot="overlay">
                         <a-menu-item key="0">
-                            <a href="http://www.alipay.com/">My Profile</a>
-                        </a-menu-item>
-                        <a-menu-item key="1">
-                            <a href="http://www.alipay.com/">Change Password</a>
+                            <router-link :to="{ name: 'AdminUsersProfile' }">My Profile</router-link>
                         </a-menu-item>
                         <a-menu-divider />
-                        <a-menu-item key="3" @click="logout">
+                        <a-menu-item key="1" @click="logout">
                             Logout
                         </a-menu-item>
                     </a-menu>

@@ -10,6 +10,7 @@ const router = new VueRouter({
             name: 'Login',
             component: () => import('../pages/Login')
         },
+
         {
             path: '/',
             component: () => import('../layouts/App'),
@@ -20,14 +21,24 @@ const router = new VueRouter({
                     component: () => import('../pages/dashboard/Index')
                 },
                 {
+                    path: '/profile',
+                    name: 'AdminUsersProfile',
+                    component: () => import('../pages/AdminUsers/Profile')
+                },
+                {
                     path: '/manage-access/admin-users',
                     name: 'AdminUsersIndex',
                     component: () => import('../pages/AdminUsers/Index')
                 },
                 {
-                    path: '/manage-access/admin-users/:id',
+                    path: '/manage-access/admin-users/:id(\\d+)',
                     name: 'AdminUsersShow',
                     component: () => import('../pages/AdminUsers/Show')
+                },
+                {
+                    path: '/manage-access/admin-users/create',
+                    name: 'AdminUsersCreate',
+                    component: () => import('../pages/AdminUsers/Create')
                 },
                 {
                     path: '/manage-access/roles',

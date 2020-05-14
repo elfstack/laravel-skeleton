@@ -7,6 +7,8 @@ use App\Models\AdminUser;
 use App\Utils\Listing;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AdminUserController extends Controller
 {
@@ -29,12 +31,22 @@ class AdminUserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return array
      */
     public function store(Request $request)
     {
-        // TODO:
+        $sanitized = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'min:6|required',
+        ]);
+
+        $sanitized['password'] = Hash::make($sanitized['password']);
+
+        return [
+            'admin_user' => AdminUser::create($sanitized)
+        ];
     }
 
     /**
@@ -53,13 +65,27 @@ class AdminUserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param AdminUser $adminUser
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, AdminUser $adminUser)
     {
-        //
+        $sanitized = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'sometimes|min:6',
+        ]);
+
+        if ($request->has('password')) {
+            $sanitized['password'] = Hash::make($sanitized['password']);
+        }
+
+        $adminUser->update($sanitized);
+
+        return [
+            'admin_user' => $adminUser
+        ];
     }
 
     /**
@@ -70,7 +96,7 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //TODO: postponed
     }
 
     public function current(Request $request)

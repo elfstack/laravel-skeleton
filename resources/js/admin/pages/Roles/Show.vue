@@ -1,19 +1,45 @@
 <template>
     <div>
-        <a-page-header :title="role.name">
+        <a-page-header :title="role.name" style="background: #fff">
             <template slot="extra">
-                <a-button key="3">
+                <a-button key="1" icon="save" type="primary" @click="updateRole">
                     Save
                 </a-button>
             </template>
         </a-page-header>
+        <a-row :gutter="16" class="p2">
+            <a-col :span="12">
+                <a-card>
+                    <a-statistic
+                        title="Permissions"
+                        :value="role.permissions.length"
+                        style="margin-right: 50px"
+                    >
+                    </a-statistic>
+                </a-card>
+            </a-col>
+            <a-col :span="12">
+                <a-card>
+                    <a-statistic
+                        title="Users"
+                        :value="0"
+                        style="margin-right: 50px"
+                    >
+                    </a-statistic>
+                </a-card>
+            </a-col>
+        </a-row>
         <div class="p2">
-                <a-table
-                    :data-source="permissions"
-                    rowKey="id"
-                    :columns="columns"
-                    :row-selection="{ selectedRowKeys: role.permissions, onChange: onSelectChange }"
-                ></a-table>
+            <a-table
+                :pagination="false"
+                :data-source="permissions"
+                rowKey="id"
+                :columns="columns"
+                :row-selection="{ selectedRowKeys: role.permissions, onChange: onSelectChange }"
+            ></a-table>
+            <a-button type="danger" icon="delete" class="mt2">
+                Delete
+            </a-button>
         </div>
     </div>
 </template>
@@ -26,28 +52,40 @@
         data () {
             return {
                 role: {
+                    id: '',
                     name: '',
                     permissions: []
                 },
                 columns: [
                     { dataIndex: 'name', key: 'name', title: 'Permission'}
                 ],
-                permissions: []
+                permissions: [],
+                permissionListingApi: permission.index
             }
         },
-        watch: {
-            '$route': 'fetchRole'
+        beforeRouteEnter (to, from, next) {
+            next(vm => vm.fetchRole(to.params.id))
+        },
+        beforeRouteUpdate (to, from, next) {
+            this.fetchRole(to.params.id)
+            next()
         },
         created() {
             this.fetchRole()
         },
         methods: {
-            fetchRole () {
-                role.show(this.$route.params.id).then(({data}) => {
+            // TODO: sort permissions selected, name
+            fetchRole (id) {
+                role.show(id).then(({data}) => {
                     this.role = data.role
                 })
                 permission.index().then(({data}) => {
-                    this.permissions = data.data
+                    this.permissions = data.permissions
+                })
+            },
+            updateRole () {
+                role.update(this.role).then(({data}) => {
+                    this.$message.success("Updated!")
                 })
             },
             onSelectChange(selectedRowKeys) {

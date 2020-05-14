@@ -1,9 +1,9 @@
 <template>
     <div>
-        <a-page-header title='Admin' :sub-title="adminUser.name" @back="$router.go(-1)" style="background: #fff">
+        <a-page-header title='Create Admin User' @back="$router.go(-1)">
             <template slot="extra">
                 <a-button key="1" type="primary" icon="save" @click="submit">
-                    Save
+                    Create
                 </a-button>
             </template>
         </a-page-header>
@@ -18,17 +18,15 @@
 </template>
 
 <script>
-    import adminUser from "../../../api/admin/adminUser";
     import Form from './Form'
 
     export default {
-        name: "Show",
+        name: "Create",
         components: {
             'admin-users-form': Form
         },
         data () {
             return {
-                loading: false,
                 adminUser: {
                     name: '',
                     email: '',
@@ -38,19 +36,7 @@
 
             }
         },
-        beforeRouteEnter (to, from, next) {
-            next(vm => vm.fetchData(to.params.id))
-        },
-        beforeRouteUpdate (to, from, next) {
-            this.fetchData(to.params.id)
-            next()
-        },
         methods: {
-            fetchData (id) {
-                adminUser.show(id).then(({data}) => {
-                    this.adminUser = data.admin_user
-                })
-            },
             submit () {
                 this.$refs['admin-users-form'].submit()
             }

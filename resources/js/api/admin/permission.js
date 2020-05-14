@@ -11,6 +11,7 @@ export default {
 
     show (id) {
         return window.axios.get(this.apiPrefix + '/roles/' + id)
-    }
+    },
+
 
 }

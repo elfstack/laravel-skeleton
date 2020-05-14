@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -64,8 +65,17 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $sanitized = $request->validate([
-            'name' => 'required|string|unique:roles'
+            'name' => [
+                'required',
+                'string',
+                Rule::unique('roles')->ignore($role->id)
+            ],
+            'permissions' => 'required|array'
         ]);
+
+        $role->permissions()->sync($sanitized['permissions']);
+
+        unset($sanitized['permissions']);
 
         return [
             'role' => $role->update($sanitized)

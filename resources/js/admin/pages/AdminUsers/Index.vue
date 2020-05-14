@@ -1,9 +1,15 @@
 <template>
     <div>
-        <a-page-header
-            style="border: 1px solid rgb(235, 237, 240); background: #fff"
-            title="Admin Users"
-        />
+        <a-page-header title="Admin Users">
+
+            <template #extra>
+                <router-link :to="{ name: 'AdminUsersCreate' }">
+                    <a-button type="primary" icon="plus">
+                        Create
+                    </a-button>
+                </router-link>
+            </template>
+        </a-page-header>
 
         <div class="p3">
             <a-card>
@@ -12,7 +18,16 @@
                     :columns="columns"
                     inline-template>
                     <div>
-                        <a-input-search placeholder="input search text" style="width: 200px" @search="handleSearch" />
+                        <a-form>
+                            <a-form-item>
+                                <a-input-search
+                                    placeholder="Search"
+                                    @search="handleSearch"
+                                    :loading="loading"
+                                    allow-clear
+                                />
+                            </a-form-item>
+                        </a-form>
                     <a-table
                         @change="handleChange"
                         :pagination="pagination"
@@ -21,9 +36,7 @@
                         row-key="id"
                         :data-source="data">
                             <span slot="action" slot-scope="text,record">
-                                <router-link :to="{ name: 'AdminUsersShow', params: { id: record.id }}">View</router-link>
-                                <a-divider type="vertical" />
-                                <a>Delete</a>
+                                <router-link :to="{ name: 'AdminUsersShow', params: { id: record.id }}">Details</router-link>
                             </span>
                     </a-table>
                     </div>

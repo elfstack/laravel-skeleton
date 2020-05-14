@@ -23,7 +23,7 @@
             'admin-side-nav': SideNav
         },
         created () {
-            this.getAdminUser()
+           this.getAdminUser()
         },
         methods: {
             ...mapActions('adminUser', [
