@@ -33,33 +33,30 @@
                     </a-menu-item>
                 </a-menu-item-group>
             </a-sub-menu>
-            <a-sub-menu key="sub2" @titleClick="titleClick">
-                <span slot="title"><a-icon type="appstore" /><span>Navigation Two</span></span>
-                <a-menu-item key="5">
-                    Option 5
-                </a-menu-item>
-                <a-menu-item key="6">
-                    Option 6
-                </a-menu-item>
-                <a-sub-menu key="sub3" title="Submenu">
-                    <a-menu-item key="7">
-                        Option 7
-                    </a-menu-item>
-                    <a-menu-item key="8">
-                        Option 8
-                    </a-menu-item>
-                </a-sub-menu>
-            </a-sub-menu>
-            <a-sub-menu key="sub4">
+
+            <a-sub-menu key="manage-access">
                 <span slot="title"><a-icon type="lock" /><span>Manage Access</span></span>
-                <a-menu-item key="9">
+                <a-menu-item key="admin-users">
                     <router-link to="/manage-access/admin-users">Admin Users</router-link>
                 </a-menu-item>
-                <a-menu-item key="10">
+                <a-menu-item key="roles">
                     <router-link to="/manage-access/roles">Roles & Permissions</router-link>
                 </a-menu-item>
-                <a-menu-item key="11">
+                <a-menu-item key="action-log">
                     Action Log
+                </a-menu-item>
+            </a-sub-menu>
+
+            <a-sub-menu key="site-settings">
+                <span slot="title"><a-icon type="setting"/><span>Site Settings</span></span>
+                <a-menu-item key="site-info">
+                    <router-link to="/site-settings/site-info">Site Info</router-link>
+                </a-menu-item>
+                <a-menu-item key="clear-cache">
+                    <router-link to="/site-settings/cache">Clear Cache</router-link>
+                </a-menu-item>
+                <a-menu-item key="manage-storage">
+                    <router-link to="/site-settings/storage">Manage Storage</router-link>
                 </a-menu-item>
             </a-sub-menu>
         </a-menu>

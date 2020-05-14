@@ -35,6 +35,9 @@
                         :columns="columns"
                         row-key="id"
                         :data-source="data">
+                            <span slot="roles" slot-scope="text,record">
+                                <a-tag color="blue" v-for="role in record.roles" :key="role.id">{{ role.name }}</a-tag>
+                            </span>
                             <span slot="action" slot-scope="text,record">
                                 <router-link :to="{ name: 'AdminUsersShow', params: { id: record.id }}">Details</router-link>
                             </span>
@@ -57,7 +60,7 @@
                     { dataIndex: 'id', key: 'id', title: 'ID', sorter: true },
                     { dataIndex: 'name', key: 'name', title: 'Name' },
                     { dataIndex: 'email', key: 'email', title: 'Email'},
-                    { dataIndex: 'roles', key: 'roles', title: 'Roles'},
+                    { dataIndex: 'roles', key: 'roles', title: 'Roles', scopedSlots: { customRender: 'roles' }},
                     { dataIndex: 'action', key: 'action', title: 'Action', scopedSlots: { customRender: 'action' } }
                 ]
             }

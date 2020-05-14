@@ -9,7 +9,11 @@
         </a-page-header>
         <div class="p2">
             <a-card title="Information">
-                <admin-users-form :admin-user.sync="adminUser" ref="admin-users-form">
+                <admin-users-form
+                    :admin-user.sync="adminUser"
+                    ref="admin-users-form"
+                    can-change-role
+                >
 
                 </admin-users-form>
             </a-card>

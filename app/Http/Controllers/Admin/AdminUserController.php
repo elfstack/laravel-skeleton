@@ -22,10 +22,18 @@ class AdminUserController extends Controller
 
     public function index(Request $request)
     {
-        return Listing::create(AdminUser::class)
+        $result = Listing::create(AdminUser::class)
             ->attachSorting(['id'])
             ->attachSearching(['name'])
+            ->modifyQuery(function ($query) {
+                $query->with('roles:name');
+            })
             ->get($request);
+
+        // TODO: unset pivot
+
+        return $result;
+
     }
 
     /**
@@ -40,12 +48,16 @@ class AdminUserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'min:6|required',
+            'roles' => 'array|required'
         ]);
 
         $sanitized['password'] = Hash::make($sanitized['password']);
 
+        $adminUser = AdminUser::create($sanitized);
+        $adminUser->roles()->sync($sanitized['roles']);
+
         return [
-            'admin_user' => AdminUser::create($sanitized)
+            'admin_user' => $adminUser
         ];
     }
 
@@ -57,6 +69,8 @@ class AdminUserController extends Controller
      */
     public function show(AdminUser $adminUser)
     {
+        $adminUser->roles = $adminUser->roles()->pluck('id');
+
         return [
             'admin_user' => $adminUser
         ];
@@ -75,11 +89,14 @@ class AdminUserController extends Controller
             'name' => 'required',
             'email' => 'required',
             'password' => 'sometimes|min:6',
+            'roles' => 'array|required'
         ]);
 
         if ($request->has('password')) {
             $sanitized['password'] = Hash::make($sanitized['password']);
         }
+
+        $adminUser->roles()->sync($sanitized['roles']);
 
         $adminUser->update($sanitized);
 
