@@ -22,7 +22,7 @@
                 <a-card>
                     <a-statistic
                         title="Users"
-                        :value="0"
+                        :value="role.total_users"
                         style="margin-right: 50px"
                     >
                     </a-statistic>
@@ -60,7 +60,6 @@
                     { dataIndex: 'name', key: 'name', title: 'Permission'}
                 ],
                 permissions: [],
-                permissionListingApi: permission.index
             }
         },
         beforeRouteEnter (to, from, next) {

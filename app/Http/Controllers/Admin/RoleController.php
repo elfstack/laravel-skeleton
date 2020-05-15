@@ -50,6 +50,7 @@ class RoleController extends Controller
     public function show(Role $role)
     {
         $role->permissions = $role->permissions()->pluck('id');
+        $role->total_users = $role->users()->count();
         return [
             'role' => $role,
         ];
