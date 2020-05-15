@@ -20,6 +20,11 @@ class AdminUserController extends Controller
      * @throws \Exception
      */
 
+    public function __construct()
+    {
+        $this->middleware('can:admin.admin-users')->except('current', 'updateCurrent');
+    }
+
     public function index(Request $request)
     {
         $result = Listing::create(AdminUser::class)
