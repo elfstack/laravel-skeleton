@@ -10,6 +10,7 @@
         <div class="p2">
             <a-card title="Information">
                 <admin-users-form
+                    :api="api"
                     :admin-user.sync="adminUser"
                     ref="admin-users-form"
                     can-change-role
@@ -39,7 +40,7 @@
                     password: '',
                     password_confirm: ''
                 },
-
+                api: adminUser.update
             }
         },
         beforeRouteEnter (to, from, next) {
@@ -56,7 +57,9 @@
                 })
             },
             submit () {
-                this.$refs['admin-users-form'].submit()
+                this.$refs['admin-users-form'].$submit().then(({ data }) => {
+                    this.$message.success('Updated')
+                })
             }
         }
     }

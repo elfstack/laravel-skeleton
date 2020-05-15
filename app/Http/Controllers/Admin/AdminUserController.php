@@ -116,10 +116,40 @@ class AdminUserController extends Controller
         //TODO: postponed
     }
 
+    /**
+     * Retrieve current logged in admin_user
+     *
+     * @param Request $request
+     * @return array
+     */
     public function current(Request $request)
     {
         return [
             'admin_user' => $request->user()
+        ];
+    }
+
+    /**
+     * Update current logged in admin_user
+     * @param Request $request
+     * @param AdminUser $adminUser
+     * @return array
+     */
+    public function updateCurrent(Request $request, AdminUser $adminUser) {
+        $sanitized = $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'sometimes|min:6'
+        ]);
+
+        if ($request->has('password')) {
+            $sanitized['password'] = Hash::make($sanitized['password']);
+        }
+
+        $adminUser->update($sanitized);
+
+        return [
+            'admin_user' => $adminUser
         ];
     }
 }

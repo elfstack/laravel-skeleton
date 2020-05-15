@@ -1,27 +1,28 @@
 import index from '../listing'
 
 export default {
-    apiPrefix: '/admin/api',
-
     login (credential) {
-        return window.axios.post(this.apiPrefix + '/login', credential)
+        return window.axios.post('/login', credential)
     },
     logout () {
-        return window.axios.get(this.apiPrefix + '/logout')
+        return window.axios.get('/logout')
     },
     getCurrent () {
-        return window.axios.get(this.apiPrefix + '/admin-users/current')
+        return window.axios.get('/admin-users/current')
+    },
+    updateCurrent (adminUser) {
+        return window.axios.put('/admin-users/current', adminUser)
     },
     index (paramBag) {
-        return index(paramBag, '/admin/api/admin-users')
+        return index(paramBag, '/admin-users')
     },
     show (id) {
-        return window.axios.get(this.apiPrefix + '/admin-users/' + id)
+        return window.axios.get('/admin-users/' + id)
     },
     update (adminUser) {
-        return window.axios.put(this.apiPrefix + '/admin-users/' + adminUser.id, adminUser)
+        return window.axios.put('/admin-users/' + adminUser.id, adminUser)
     },
     create (adminUser) {
-        return window.axios.post(this.apiPrefix + '/admin-users/', adminUser)
+        return window.axios.post('/admin/api/admin-users/', adminUser)
     }
 }

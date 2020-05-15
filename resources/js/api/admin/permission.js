@@ -1,16 +1,15 @@
 export default {
-    apiPrefix: '/admin/api',
 
     index () {
-        return window.axios.get(this.apiPrefix + '/permissions')
+        return window.axios.get('/permissions')
     },
 
     create (role) {
-        return window.axios.post(this.apiPrefix + '/roles', role)
+        return window.axios.post('/roles', role)
     },
 
     show (id) {
-        return window.axios.get(this.apiPrefix + '/roles/' + id)
+        return window.axios.get('/roles/' + id)
     },
 
 

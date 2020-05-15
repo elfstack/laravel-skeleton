@@ -10,7 +10,11 @@
 
         <div class="p2">
             <a-card title="Information">
-                <admin-users-form :admin-user.sync="adminUser" ref="admin-users-form"></admin-users-form>
+                <admin-users-form
+                    :api="api"
+                    :admin-user.sync="adminUser"
+                    ref="admin-users-form">
+                </admin-users-form>
             </a-card>
         </div>
     </div>
@@ -18,7 +22,7 @@
 
 <script>
     import Form from './Form'
-    import { mapGetters } from 'vuex'
+    import adminUser from "../../../api/admin/adminUser";
 
     export default {
         name: "AdminUsersProfile",
@@ -35,15 +39,17 @@
                     password: '',
                     password_confirm: ''
                 },
+                api: adminUser.updateCurrent
             }
         },
         created () {
-            // copy admin user from store
             this.adminUser = this.$store.state.adminUser
         },
         methods: {
             submit () {
-                this.$refs['admin-users-form'].submit()
+                this.$refs['admin-users-form'].$submit().then(({data}) => {
+                    this.$message.success('Profile updated')
+                })
             }
         }
     }

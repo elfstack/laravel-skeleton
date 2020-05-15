@@ -1,5 +1,5 @@
 <template>
-    <a-form-model :model="adminUser" ref="admin-user-form" :rules="rules">
+    <a-form-model :model="adminUser" ref="form" :rules="rules">
         <a-row>
             <a-col :span="6">
                 <a-form-model-item label="Avatar">
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-    import adminUser from '../../../api/admin/adminUser';
     import role from '../../../api/admin/role'
 
     export default {
@@ -56,12 +55,19 @@
             canChangeRole: {
                 type: Boolean,
                 default: false
+            },
+            api: {
+                type: Function,
+                required: true
+            },
+            extraRules: {
+                type: Object
             }
         },
         name: "AdminUsersForm",
         data () {
             let validateConfirmPassword = (rule, value, callback) => {
-                if (value !== this.adminUser.password) {
+                if (this.adminUser.password !== '' && value !== this.adminUser.password) {
                     callback(new Error('Password not match'))
                 }
                 callback()
@@ -84,10 +90,9 @@
                         { required: true }
                     ],
                     password: [
-                        { required: true },
+                        { min: 6 },
                     ],
                     password_confirm: [
-                        { required: true },
                         { validator: validateConfirmPassword, trigger: 'change' }
                     ],
                     ...(this.canChangeRole && validateGroupRole)
@@ -96,6 +101,11 @@
         },
         created () {
             this.$watch('adminUser.roles', this.getRoles)
+            if (this.extraRules) {
+                for (const prop in this.extraRules) {
+                    this.rules[prop] = this.rules[prop].concat(this.extraRules[prop])
+                }
+            }
         },
         methods: {
             getRoles () {
@@ -110,21 +120,14 @@
             onOpen () {
                 this.getRoles()
             },
-            submit () {
-                this.$refs['admin-user-form'].validate(valid => {
-                    if (valid) {
-                        this.request().then(({data}) => {
-                            this.$message.success('Updated!')
-                        })
-                    }
+            $submit () {
+                return this.$refs['form'].validate().then(() => {
+                    return this.api(this.adminUser).then(response => {
+                        return response
+                    }).catch(error => {
+                        // TODO: server side error mapping, duplicate email etc.
+                    })
                 })
-            },
-            request () {
-                if (this.adminUser.id) {
-                    return adminUser.update(this.adminUser)
-                } else {
-                    return adminUser.create(this.adminUser)
-                }
             }
         }
     }

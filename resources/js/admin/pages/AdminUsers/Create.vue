@@ -9,7 +9,12 @@
         </a-page-header>
         <div class="p2">
             <a-card title="Information">
-                <admin-users-form :admin-user.sync="adminUser" ref="admin-users-form" can-change-role>
+                <admin-users-form
+                    :admin-user.sync="adminUser"
+                    ref="admin-users-form"
+                    :api="api"
+                    :extra-rules="rules"
+                    can-change-role>
 
                 </admin-users-form>
             </a-card>
@@ -19,6 +24,7 @@
 
 <script>
     import Form from './Form'
+    import adminUser from "../../../api/admin/adminUser"
 
     export default {
         name: "Create",
@@ -33,12 +39,18 @@
                     password: '',
                     password_confirm: ''
                 },
-
+                api: adminUser.create,
+                rules: {
+                    password: [{ required: true }]
+                }
             }
         },
         methods: {
             submit () {
-                this.$refs['admin-users-form'].submit()
+                this.$refs['admin-users-form'].$submit().then(({data}) => {
+                    this.$message.success('Admin Created')
+                    this.$router.push({ name: 'AdminUsersShow', params: { id: data.id } })
+                })
             }
         }
     }

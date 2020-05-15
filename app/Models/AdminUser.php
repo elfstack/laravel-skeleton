@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable as Auditable;
 use Spatie\Permission\Traits\HasRoles;
 
-class AdminUser extends Authenticatable
+class AdminUser extends Authenticatable implements Auditable
 {
     use Notifiable;
     use HasRoles;
+    use \OwenIt\Auditing\Auditable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,5 +38,9 @@ class AdminUser extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    protected $auditInclude = [
+        'email', 'password', 'roles'
     ];
 }

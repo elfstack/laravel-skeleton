@@ -8,12 +8,17 @@ window._ = require('lodash');
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+const axios = require('axios');
 
-
-window.axios.defaults.withCredentials = true;
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios = axios.create({
+    baseURL: '/admin/api',
+    withCredentials: true,
+    headers: {
+        common: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }
+})
 
 window.axios.interceptors.response.use(undefined, error => {
     if (error.response.status === 401) {
