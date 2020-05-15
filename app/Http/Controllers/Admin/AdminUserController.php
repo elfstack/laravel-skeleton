@@ -129,6 +129,10 @@ class AdminUserController extends Controller
      */
     public function current(Request $request)
     {
+        $adminUser = $request->user();
+
+        $adminUser->roles = $adminUser->roles()->pluck('name');
+
         return [
             'admin_user' => $request->user()
         ];

@@ -23,11 +23,15 @@
             'admin-side-nav': SideNav
         },
         created () {
-           this.getAdminUser()
+            this.getAdminUser()
+            this.getConfig()
         },
         methods: {
             ...mapActions('adminUser', [
                 'getAdminUser'
+            ]),
+            ...mapActions('config', [
+                'getConfig'
             ])
         }
     }

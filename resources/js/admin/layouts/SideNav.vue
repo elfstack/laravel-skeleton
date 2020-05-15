@@ -14,9 +14,11 @@
             @click="handleClick"
         >
             <a-sub-menu key="sub1" @titleClick="titleClick">
-                <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
+                <span slot="title"><a-icon type="mail"/><span>Navigation One</span></span>
                 <a-menu-item-group key="g1">
-                    <template slot="title"> <a-icon type="qq" /><span>Item 1</span> </template>
+                    <template slot="title">
+                        <a-icon type="qq"/>
+                        <span>Item 1</span></template>
                     <a-menu-item key="1">
                         Option 1
                     </a-menu-item>
@@ -35,11 +37,11 @@
             </a-sub-menu>
 
             <a-sub-menu key="manage-access">
-                <span slot="title"><a-icon type="lock" /><span>Manage Access</span></span>
-                <a-menu-item key="admin-users">
+                <span slot="title"><a-icon type="lock"/><span>Manage Access</span></span>
+                <a-menu-item key="admin-users" v-if="$store.getters['adminUser/can']('admin.admin-users')">
                     <router-link to="/manage-access/admin-users">Admin Users</router-link>
                 </a-menu-item>
-                <a-menu-item key="roles">
+                <a-menu-item key="roles" v-if="$store.getters['adminUser/can']('admin.roles')">
                     <router-link to="/manage-access/roles">Roles & Permissions</router-link>
                 </a-menu-item>
                 <a-menu-item key="action-log">
@@ -66,26 +68,26 @@
 <script>
     export default {
         name: "SideNav",
-            data() {
-                return {
-                    current: [],
-                    openKeys: [],
-                    collapsed: false
-                };
+        data() {
+            return {
+                current: [],
+                openKeys: [],
+                collapsed: false
+            };
+        },
+        watch: {
+            openKeys(val) {
+                console.log('openKeys', val);
             },
-            watch: {
-                openKeys(val) {
-                    console.log('openKeys', val);
-                },
+        },
+        methods: {
+            handleClick(e) {
+                console.log('click', e);
             },
-            methods: {
-                handleClick(e) {
-                    console.log('click', e);
-                },
-                titleClick(e) {
-                    console.log('titleClick', e);
-                },
+            titleClick(e) {
+                console.log('titleClick', e);
             },
+        },
 
     }
 </script>

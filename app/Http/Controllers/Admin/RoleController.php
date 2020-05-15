@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
@@ -15,20 +14,23 @@ class RoleController extends Controller
     {
         $this->middleware('can:admin.roles');
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Database\Eloquent\Collection|Role[]
+     * @return array
      */
     public function index()
     {
-        return ['roles' => Role::all()];
+        return [
+            'roles' => Role::all()
+        ];
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function store(Request $request)
@@ -64,7 +66,7 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Role $role
      * @return array
      */

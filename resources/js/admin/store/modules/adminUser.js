@@ -4,12 +4,25 @@ import router from '../../routes'
 const state = () => ({
     id: '',
     name: '',
-    email: ''
+    email: '',
+    roles: []
 })
 
 const getters = {
     adminUser (state) {
         return state
+    },
+    can: (state, getters, rootState, rootGetters) => (permission) => {
+        // setting up first
+        const roles = rootGetters['config/permissions'][permission]
+        if (!roles) {
+            return false
+        }
+        const myRoles = state.roles
+
+        let tmp = roles.concat(myRoles)
+
+        return new Set(tmp).size < tmp.length
     }
 }
 
@@ -19,10 +32,12 @@ const mutations = {
             state.id = ''
             state.name = ''
             state.email = ''
+            state.roles = []
         }
         state.id = adminUser.id
         state.name = adminUser.name
         state.email = adminUser.email
+        state.roles = adminUser.roles
     }
 }
 

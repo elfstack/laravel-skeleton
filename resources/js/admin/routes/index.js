@@ -10,48 +10,72 @@ const router = new VueRouter({
             name: 'Login',
             component: () => import('../pages/Login')
         },
-
         {
             path: '/',
             component: () => import('../layouts/App'),
             children: [
                 {
-                    path: '/',
+                    path: '',
                     name: 'Dashboard',
                     component: () => import('../pages/dashboard/Index')
                 },
                 {
-                    path: '/profile',
+                    path: 'profile',
                     name: 'AdminUsersProfile',
                     component: () => import('../pages/AdminUsers/Profile')
                 },
                 {
-                    path: '/manage-access/admin-users',
-                    name: 'AdminUsersIndex',
-                    component: () => import('../pages/AdminUsers/Index')
-                },
-                {
-                    path: '/manage-access/admin-users/:id(\\d+)',
-                    name: 'AdminUsersShow',
-                    component: () => import('../pages/AdminUsers/Show')
-                },
-                {
-                    path: '/manage-access/admin-users/create',
-                    name: 'AdminUsersCreate',
-                    component: () => import('../pages/AdminUsers/Create')
-                },
-                {
-                    path: '/manage-access/roles',
-                    name: 'RolesIndex',
-                    component: () => import('../pages/Roles/Index'),
+                    path: 'manage-access',
+                    component: { render: h => h('router-view') },
                     children: [
                         {
-                            path: ':id',
-                            name: 'RoleShow',
-                            component: () => import('../pages/Roles/Show')
+                            path: 'admin-users',
+                            component: { render: h => h('router-view') },
+                            meta: {
+                                permission: 'admin.admin-users'
+                            },
+                            children: [
+                                {
+                                    path: '/',
+                                    name: 'AdminUsersIndex',
+                                    component: () => import('../pages/AdminUsers/Index')
+                                },
+                                {
+                                    path: '/:id(\\d+)',
+                                    name: 'AdminUsersShow',
+                                    component: () => import('../pages/AdminUsers/Show')
+                                },
+                                {
+                                    path: '/create',
+                                    name: 'AdminUsersCreate',
+                                    component: () => import('../pages/AdminUsers/Create')
+                                },
+                            ]
+                        },
+                        {
+                            path: 'roles',
+                            component: { render: h => h('router-view') },
+                            meta: {
+                                permission: 'admin.roles'
+                            },
+                            children: [
+                                {
+                                    path: '/',
+                                    name: 'RolesIndex',
+                                    component: () => import('../pages/Roles/Index'),
+                                    children: [
+                                        {
+                                            path: ':id',
+                                            name: 'RoleShow',
+                                            component: () => import('../pages/Roles/Show')
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
-                }
+                },
+
             ]
         },
 

@@ -12,6 +12,18 @@ import Listing from '../common/listing'
 Vue.use(AntDesign)
 Vue.component('listing', Listing)
 
+router.beforeEach((to, from, next) => {
+    to.matched.forEach(route => {
+        if (route.meta.permission) {
+            let can = store.getters['adminUser/can'](route.meta.permission)
+            if (!can) {
+                // TODO: abort 403
+            }
+        }
+    })
+    next()
+})
+
 const app = new Vue({
     el: '#app',
     template: "<router-view />",
