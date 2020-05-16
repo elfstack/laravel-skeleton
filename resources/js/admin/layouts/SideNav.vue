@@ -6,14 +6,12 @@
     >
         <div class="logo h4 center" style="color: #fff;">{{ !collapsed ? 'Laravel Skeleton' : 'LS' }}</div>
         <a-menu
-            style="width: 256px"
             theme="dark"
-            :default-selected-keys="['1']"
             :open-keys.sync="openKeys"
+            v-model="selectedKeys"
             mode="inline"
-            @click="handleClick"
         >
-            <a-sub-menu key="sub1" @titleClick="titleClick">
+            <a-sub-menu key="sub1">
                 <span slot="title"><a-icon type="mail"/><span>Navigation One</span></span>
                 <a-menu-item-group key="g1">
                     <template slot="title">
@@ -36,15 +34,15 @@
                 </a-menu-item-group>
             </a-sub-menu>
 
-            <a-sub-menu key="manage-access">
+            <a-sub-menu key="ManageAccess">
                 <span slot="title"><a-icon type="lock"/><span>Manage Access</span></span>
-                <a-menu-item key="admin-users" v-if="$store.getters['adminUser/can']('admin.admin-users')">
+                <a-menu-item key="AdminUsers" v-if="$can('admin.admin-users')">
                     <router-link to="/manage-access/admin-users">Admin Users</router-link>
                 </a-menu-item>
-                <a-menu-item key="roles" v-if="$store.getters['adminUser/can']('admin.roles')">
+                <a-menu-item key="Roles" v-if="$can('admin.roles')">
                     <router-link to="/manage-access/roles">Roles & Permissions</router-link>
                 </a-menu-item>
-                <a-menu-item key="audits" v-if="$store.getters['adminUser/can']('admin.audits')">
+                <a-menu-item key="Audits" v-if="$can('admin.audits')">
                     <router-link to="/manage-access/audits">Action Log</router-link>
                 </a-menu-item>
             </a-sub-menu>
@@ -70,25 +68,16 @@
         name: "SideNav",
         data() {
             return {
-                current: [],
                 openKeys: [],
+                selectedKeys: [],
                 collapsed: false
-            };
+            }
         },
-        watch: {
-            openKeys(val) {
-                console.log('openKeys', val);
-            },
-        },
-        methods: {
-            handleClick(e) {
-                console.log('click', e);
-            },
-            titleClick(e) {
-                console.log('titleClick', e);
-            },
-        },
-
+        created() {
+            const routes = this.$route.matched.map(route => route.name)
+            this.openKeys = [routes[1]]
+            this.selectedKeys = [routes[2]]
+        }
     }
 </script>
 

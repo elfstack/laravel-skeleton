@@ -29,12 +29,14 @@ const router = new VueRouter({
                     component: () => import('../pages/AdminUsers/Profile')
                 },
                 {
-                    path: 'manage-access',
+                    path: 'manage-access/',
+                    name: 'ManageAccess',
                     component: { render: h => h('router-view') },
                     children: [
                         {
-                            path: 'admin-users',
+                            path: 'admin-users/',
                             component: { render: h => h('router-view') },
+                            name: 'AdminUsers',
                             meta: {
                                 permission: 'admin.admin-users'
                             },
@@ -45,19 +47,20 @@ const router = new VueRouter({
                                     component: () => import('../pages/AdminUsers/Index')
                                 },
                                 {
-                                    path: '/:id(\\d+)',
+                                    path: ':id(\\d+)',
                                     name: 'AdminUsersShow',
                                     component: () => import('../pages/AdminUsers/Show')
                                 },
                                 {
-                                    path: '/create',
+                                    path: 'create',
                                     name: 'AdminUsersCreate',
                                     component: () => import('../pages/AdminUsers/Create')
                                 },
                             ]
                         },
                         {
-                            path: 'roles',
+                            path: 'roles/',
+                            name: 'Roles',
                             component: { render: h => h('router-view') },
                             meta: {
                                 permission: 'admin.roles'
@@ -78,7 +81,8 @@ const router = new VueRouter({
                             ]
                         },
                         {
-                            path: 'audits',
+                            path: 'audits/',
+                            name: 'Audits',
                             component: { render: h => h('router-view') },
                             meta: {
                                 permission: 'admin.audits'

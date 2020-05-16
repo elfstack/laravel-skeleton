@@ -45,3 +45,7 @@ window.axios.interceptors.response.use(undefined, error => {
 
     return Promise.reject(error)
 })
+
+Vue.prototype.$can = value => {
+   return store.getters['adminUser/can'](value)
+}
