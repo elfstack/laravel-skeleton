@@ -121,13 +121,22 @@
                 this.getRoles()
             },
             $submit () {
-                return this.$refs['form'].validate().then(() => {
+                const form = this.$refs['form']
+                return form.validate().then(() => {
                     return this.api(this.adminUser).then(response => {
                         return response
                     }).catch(error => {
-                        // TODO: server side error mapping, duplicate email etc.
+                        if (error.response.status === 422) {
+                            const errors = error.response.data.errors
+                            form.fields.filter(field => errors[field.prop] !== undefined).forEach(field => {
+                                field.validateState = 'error'
+                                // set to first error message
+                                field.validateMessage = errors[field.prop][0]
+                            })
+                        }
                     })
                 })
+
             }
         }
     }

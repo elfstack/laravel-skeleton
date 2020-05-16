@@ -8,6 +8,7 @@ use App\Utils\Listing;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AdminUserController extends Controller
@@ -15,9 +16,6 @@ class AdminUserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
-     * @return LengthAwarePaginator
-     * @throws \Exception
      */
 
     public function __construct()
@@ -51,7 +49,11 @@ class AdminUserController extends Controller
     {
         $sanitized = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => [
+                'required',
+                'email',
+                'unique:admin_users'
+            ],
             'password' => 'min:6|required',
             'roles' => 'array|required'
         ]);
@@ -92,7 +94,11 @@ class AdminUserController extends Controller
     {
         $sanitized = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('admin_users')->ignore($adminUser->id)
+            ],
             'password' => 'sometimes|min:6',
             'roles' => 'array|required'
         ]);
@@ -147,7 +153,11 @@ class AdminUserController extends Controller
     public function updateCurrent(Request $request, AdminUser $adminUser) {
         $sanitized = $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('admin_users')->ignore($adminUser->id)
+            ],
             'password' => 'sometimes|min:6'
         ]);
 
