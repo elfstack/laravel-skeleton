@@ -13,15 +13,22 @@ Vue.use(AntDesign)
 Vue.component('listing', Listing)
 
 router.beforeEach((to, from, next) => {
+    let hasRedirect = false
     to.matched.forEach(route => {
+        console.log(route.path)
         if (route.meta.permission) {
             let can = store.getters['adminUser/can'](route.meta.permission)
             if (!can) {
-                // TODO: abort 403
+                hasRedirect = true
             }
         }
     })
-    next()
+
+    if (hasRedirect) {
+        next({ name: '403', replace: true })
+    } else {
+        next()
+    }
 })
 
 const app = new Vue({

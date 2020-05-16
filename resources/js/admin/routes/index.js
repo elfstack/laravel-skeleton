@@ -75,10 +75,22 @@ const router = new VueRouter({
                         }
                     ]
                 },
-
+                {
+                    path: '/403',
+                    name: '403',
+                    component: () => import('../pages/Error/403')
+                },
+                {
+                    path: '/not-found',
+                    name: '404',
+                    component: () => import('../pages/Error/404')
+                },
+                {
+                    path: '*',
+                    redirect: '/not-found'
+                }
             ]
         },
-
     ]
 })
 
