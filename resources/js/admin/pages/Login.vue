@@ -15,9 +15,9 @@
                     </a-input>
                 </a-form-model-item>
                 <a-form-model-item has-feedback prop="password">
-                    <a-input v-model="form.password" type="password" autocomplete="off" size="large">
+                    <a-input-password v-model="form.password" size="large">
                         <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
-                    </a-input>
+                    </a-input-password>
                 </a-form-model-item>
                 <a-form-model-item>
                     <a class="login-form-forgot" href="">

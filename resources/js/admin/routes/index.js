@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import auth from './middleware/auth'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,9 @@ const router = new VueRouter({
         {
             path: '/',
             component: () => import('../layouts/App'),
+            async beforeEnter (to, from, next) {
+                await auth(to, from, next)
+            },
             children: [
                 {
                     path: '',

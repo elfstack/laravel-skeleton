@@ -14,25 +14,6 @@ Vue.use(AntDesign)
 Vue.use(VueMoment)
 Vue.component('listing', Listing)
 
-router.beforeEach((to, from, next) => {
-    let hasRedirect = false
-    to.matched.forEach(route => {
-        console.log(route.path)
-        if (route.meta.permission) {
-            let can = store.getters['adminUser/can'](route.meta.permission)
-            if (!can) {
-                hasRedirect = true
-            }
-        }
-    })
-
-    if (hasRedirect) {
-        next({ name: '403', replace: true })
-    } else {
-        next()
-    }
-})
-
 const app = new Vue({
     el: '#app',
     template: "<router-view />",

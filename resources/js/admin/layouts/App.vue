@@ -1,19 +1,18 @@
 <template>
   <a-layout>
-      <admin-side-nav></admin-side-nav>
-      <a-layout>
-          <admin-header></admin-header>
+          <admin-side-nav></admin-side-nav>
           <a-layout>
-              <a-layout-content>
-                  <router-view></router-view>
-              </a-layout-content>
+              <admin-header></admin-header>
+              <a-layout>
+                  <a-layout-content>
+                      <router-view></router-view>
+                  </a-layout-content>
+              </a-layout>
           </a-layout>
-      </a-layout>
   </a-layout>
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
     import Header from './Header'
     import SideNav from "./SideNav";
     export default {
@@ -22,17 +21,10 @@
             'admin-header': Header,
             'admin-side-nav': SideNav
         },
-        created () {
-            this.getAdminUser()
-            this.getConfig()
-        },
-        methods: {
-            ...mapActions('adminUser', [
-                'getAdminUser'
-            ]),
-            ...mapActions('config', [
-                'getConfig'
-            ])
+        data () {
+            return {
+                loading: true
+            }
         }
     }
 </script>

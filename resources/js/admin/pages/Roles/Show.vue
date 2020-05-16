@@ -2,7 +2,7 @@
     <div>
         <a-page-header :title="role.name" style="background: #fff">
             <template slot="extra">
-                <a-button key="1" icon="save" type="primary" @click="updateRole">
+                <a-button key="1" icon="save" type="primary" @click="updateRole" :disabled="role.permissions.length === 0">
                     Save
                 </a-button>
             </template>
