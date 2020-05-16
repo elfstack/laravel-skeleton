@@ -44,8 +44,8 @@
                 <a-menu-item key="roles" v-if="$store.getters['adminUser/can']('admin.roles')">
                     <router-link to="/manage-access/roles">Roles & Permissions</router-link>
                 </a-menu-item>
-                <a-menu-item key="action-log">
-                    Action Log
+                <a-menu-item key="audits" v-if="$store.getters['adminUser/can']('admin.audits')">
+                    <router-link to="/manage-access/audits">Action Log</router-link>
                 </a-menu-item>
             </a-sub-menu>
 

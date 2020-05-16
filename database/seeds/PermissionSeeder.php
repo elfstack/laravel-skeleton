@@ -11,14 +11,29 @@ class PermissionSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function run()
     {
-        $superAdmin = Role::create(['guard_name' => 'admin_api', 'name' => 'Super Admin']);
+        $this->resetPermissions();
 
         Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.admin-users']);
         Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.roles']);
+        Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.audits']);
 
-        $superAdmin->givePermissionTo(Permission::all());
+        Role::findByName('Super Admin', 'admin_api')->givePermissionTo(Permission::all());
+    }
+
+    /**
+     * Reset all permissions
+     */
+    private function resetPermissions()
+    {
+        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+
+        Schema::disableForeignKeyConstraints();
+        DB::table('role_has_permissions')->truncate();
+        DB::table('permissions')->truncate();
+        Schema::enableForeignKeyConstraints();
     }
 }

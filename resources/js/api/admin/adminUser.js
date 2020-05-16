@@ -23,6 +23,6 @@ export default {
         return window.axios.put('/admin-users/' + adminUser.id, adminUser)
     },
     create (adminUser) {
-        return window.axios.post('/admin/api/admin-users/', adminUser)
+        return window.axios.post('/admin-users/', adminUser)
     }
 }

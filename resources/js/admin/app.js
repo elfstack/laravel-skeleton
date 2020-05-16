@@ -8,8 +8,10 @@ import _ from 'lodash'
 
 import AntDesign from 'ant-design-vue'
 import Listing from '../common/listing'
+import VueMoment from 'vue-moment'
 
 Vue.use(AntDesign)
+Vue.use(VueMoment)
 Vue.component('listing', Listing)
 
 router.beforeEach((to, from, next) => {

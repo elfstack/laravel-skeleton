@@ -9,6 +9,9 @@ export default Vue.component('listing', {
         columns: {
             type: Array,
             required: true
+        },
+        binding: {
+            type: Object
         }
         // TODO: merge pagination props and data
     },

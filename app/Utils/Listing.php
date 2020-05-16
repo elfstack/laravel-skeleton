@@ -54,6 +54,14 @@ class Listing
      * @var array
      */
     protected $searchableColumns;
+    /**
+     * @var string
+     */
+    private $defaultOrder;
+    /**
+     * @var string
+     */
+    private $defaultColumn;
 
     private function __construct($model)
     {
@@ -100,9 +108,11 @@ class Listing
      * @param array $sortableColumns
      * @return $this
      */
-    public function attachSorting(array $sortableColumns)
+    public function attachSorting(array $sortableColumns, string $defaultColumn='id', string $defaultOrder='desc')
     {
         $this->sortableColumns = $sortableColumns;
+        $this->defaultColumn = $defaultColumn;
+        $this->defaultOrder = $defaultOrder;
         return $this;
     }
 
@@ -233,6 +243,8 @@ class Listing
 
         if ($this->sortableColumns && !empty($params['orderBy'])) {
             $this->querySorting($params['orderBy'], $params['direction']);
+        } else {
+            $this->query->orderBy($this->defaultColumn, $this->defaultOrder);
         }
 
         if ($this->filterableColumns && !empty($params['filter'])) {

@@ -72,6 +72,20 @@ const router = new VueRouter({
                                     ]
                                 }
                             ]
+                        },
+                        {
+                            path: 'audits',
+                            component: { render: h => h('router-view') },
+                            meta: {
+                                permission: 'admin.audits'
+                            },
+                            children: [
+                                {
+                                    path: '/',
+                                    name: 'AuditsIndex',
+                                    component: () => import('../pages/Audits/Index')
+                                }
+                            ]
                         }
                     ]
                 },
