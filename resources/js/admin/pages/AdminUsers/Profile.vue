@@ -15,6 +15,19 @@
                     :admin-user.sync="adminUser"
                     ref="admin-users-form">
                 </admin-users-form>
+                <a-row>
+                    <a-col :span="6">
+                    </a-col>
+
+                    <a-col :span="18">
+                        <a-form-model-item label="Role">
+                            <a-tag
+                                v-for="role in adminUser.roles"
+                                :key="role"
+                            >{{ role }}</a-tag>
+                        </a-form-model-item>
+                    </a-col>
+                </a-row>
             </a-card>
         </div>
     </div>
