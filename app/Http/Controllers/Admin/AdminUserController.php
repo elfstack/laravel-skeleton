@@ -119,12 +119,14 @@ class AdminUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param AdminUser $adminUser
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(AdminUser $adminUser)
     {
-        //TODO: postponed
+        $adminUser->delete();
+        return response()->noContent();
     }
 
     /**

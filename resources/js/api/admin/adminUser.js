@@ -24,5 +24,8 @@ export default {
     },
     create (adminUser) {
         return window.axios.post('/admin-users/', adminUser)
+    },
+    destroy (id) {
+        return window.axios.delete('/admin-users/' + id)
     }
 }

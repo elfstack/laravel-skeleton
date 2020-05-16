@@ -18,6 +18,9 @@
 
                 </admin-users-form>
             </a-card>
+            <a-card title="Danger Zone">
+                <a-button @click="remove" type="danger" icon="delete">Delete</a-button>
+            </a-card>
         </div>
     </div>
 </template>
@@ -54,12 +57,29 @@
             fetchData (id) {
                 adminUser.show(id).then(({data}) => {
                     this.adminUser = data.admin_user
+                }).catch(error => {
+                    if (error.response.status === 404) {
+                        this.$router.replace({ name: '404'})
+                    }
                 })
             },
             submit () {
                 this.$refs['admin-users-form'].$submit().then(({ data }) => {
                     this.$message.success('Updated')
                 })
+            },
+            remove () {
+                const _that = this
+                this.$confirm({
+                    title: 'Do you want to delete this admin user?',
+                    onOk() {
+                        adminUser.destroy(_that.adminUser.id).then(({data}) => {
+                            _that.$message.success('Deleted')
+                            _that.$router.push({ name: 'AdminUsersIndex' })
+                        })
+                    },
+                    onCancel() {},
+                });
             }
         }
     }
