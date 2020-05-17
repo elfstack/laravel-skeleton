@@ -6,6 +6,7 @@ const state = () => ({
     name: '',
     email: '',
     roles: [],
+    avatar_url: '',
     loaded: false
 })
 
@@ -42,6 +43,7 @@ const mutations = {
             state.name = adminUser.name
             state.email = adminUser.email
             state.roles = adminUser.roles
+            state.avatar_url = adminUser.avatar_url
         }
     },
     setLoaded (state, loaded) {

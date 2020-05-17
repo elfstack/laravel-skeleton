@@ -1,12 +1,13 @@
 <template>
-    <a-layout-header class="header">
+    <a-layout-header class="header" style="padding: 0 24px">
         <a-row type="flex"
                justify="space-between">
             <a-col></a-col>
             <a-col>
                 <a-dropdown :trigger="['click']">
                     <div @click="e => e.preventDefault()">
-                        <a-avatar size="large" icon="user" />
+                        <a-avatar size="large" :src="adminUser.avatar_url" v-if="adminUser.avatar_url"/>
+                        <a-avatar size="large" icon="user" v-else/>
                         <span class="ml1">
                             {{ adminUser.name }} <a-icon type="down" />
                         </span>

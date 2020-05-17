@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable as Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Permission\Traits\HasRoles;
 
-class AdminUser extends Authenticatable implements Auditable
+class AdminUser extends Authenticatable implements Auditable, HasMedia
 {
     use Notifiable;
     use HasRoles;
+    use InteractsWithMedia;
     use \OwenIt\Auditing\Auditable;
 
     /**
@@ -43,4 +47,25 @@ class AdminUser extends Authenticatable implements Auditable
     protected $auditInclude = [
         'email', 'password', 'roles'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatars')
+             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif'])
+             ->singleFile();
+    }
+
+    /**
+     * Register media conversions
+     *
+     * @param Media|null $media
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+             ->width(200)
+             ->height(200)
+             ->performOnCollections('avatars');
+    }
 }

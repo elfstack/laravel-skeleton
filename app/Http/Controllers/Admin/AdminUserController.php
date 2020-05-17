@@ -139,10 +139,12 @@ class AdminUserController extends Controller
     {
         $adminUser = $request->user();
 
+        $adminUser->avatar_url = $adminUser->getFirstMediaUrl('avatars', 'avatar');
+
         $adminUser->roles = $adminUser->roles()->pluck('name');
 
         return [
-            'admin_user' => $request->user()
+            'admin_user' => $adminUser
         ];
     }
 
@@ -151,8 +153,12 @@ class AdminUserController extends Controller
      * @param Request $request
      * @param AdminUser $adminUser
      * @return array
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
+     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
      */
-    public function updateCurrent(Request $request, AdminUser $adminUser) {
+    public function updateCurrent(Request $request) {
+        $adminUser = $request->user();
+
         $sanitized = $request->validate([
             'name' => 'required',
             'email' => [
@@ -160,11 +166,17 @@ class AdminUserController extends Controller
                 'email',
                 Rule::unique('admin_users')->ignore($adminUser->id)
             ],
+            'avatar_path' => 'sometimes',
             'password' => 'sometimes|min:6'
         ]);
 
         if ($request->has('password')) {
             $sanitized['password'] = Hash::make($sanitized['password']);
+        }
+
+        if ($request->has('avatar_path')) {
+            $adminUser->addMediaFromDisk($request->input('avatar_path'))
+                ->toMediaCollection('avatars');
         }
 
         $adminUser->update($sanitized);

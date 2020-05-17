@@ -26,15 +26,13 @@ const action = _.debounce(function (status) {
         case 401:
             if (router.currentRoute.name !== 'Login') {
                 app.$message.warning('Logged out')
-                router.push('/login');
+                router.push({ name: 'login' });
             }
             break;
         case 403:
-            // todo
             app.$message.error('You don\'t have permission to do this')
             break;
         case 500:
-            // todo
             app.$message.error('Server error')
             break;
     }

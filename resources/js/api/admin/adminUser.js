@@ -27,5 +27,8 @@ export default {
     },
     destroy (id) {
         return window.axios.delete('/admin-users/' + id)
+    },
+    updateAvatar(adminUser, path) {
+        return window.axios.put(`/admin-users/${adminUser.id}/avatar`, { path: path })
     }
 }
