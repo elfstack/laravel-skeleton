@@ -4,7 +4,14 @@
                 <a-page-header title="Roles"></a-page-header>
                 <a-list size="large" bordered :data-source="roles" style="border: none" :loading="loadingRoles">
                     <a-list-item slot="renderItem" slot-scope="item, index">
-                        <router-link :to="'/manage-access/roles/' + item.id">{{ item.name }}</router-link>
+                        <router-link
+                            :to="{
+                                name: 'admin.manage-access.roles.index.show',
+                                params: { id: item.id }
+                            }"
+                        >
+                            {{ item.name }}
+                        </router-link>
                     </a-list-item>
                     <div slot="footer" @click="modalCreateRoleVisible = true">
                         <a-icon type="plus"></a-icon> New Role

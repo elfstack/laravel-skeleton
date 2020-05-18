@@ -75,7 +75,7 @@
                     onOk() {
                         adminUser.destroy(_that.adminUser.id).then(({data}) => {
                             _that.$message.success('Deleted')
-                            _that.$router.push({ name: 'AdminUsersIndex' })
+                            _that.$router.push({ name: 'admin.manage-access.admin-users.index' })
                         })
                     },
                     onCancel() {},

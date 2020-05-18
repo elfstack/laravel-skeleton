@@ -3,7 +3,7 @@
         <a-page-header title="Admin Users">
 
             <template #extra>
-                <router-link :to="{ name: 'AdminUsersCreate' }">
+                <router-link :to="{ name: 'admin.manage-access.admin-users.create' }">
                     <a-button type="primary" icon="plus">
                         Create
                     </a-button>

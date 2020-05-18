@@ -20,6 +20,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.admin-users']);
         Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.roles']);
         Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.audits']);
+        Permission::create(['guard_name' => 'admin_api', 'name' => 'admin.settings']);
 
         Role::findByName('Super Admin', 'admin_api')->givePermissionTo(Permission::all());
     }

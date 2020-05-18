@@ -1,0 +1,8 @@
+body > .ant-layout {
+  height: 100%;
+}
+.ant-page-header {
+  border-bottom: 1px solid #ebedf0;
+  border-top: 1px solid #ebedf0;
+  background: #fff !important;
+}

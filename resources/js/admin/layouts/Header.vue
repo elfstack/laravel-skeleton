@@ -14,7 +14,7 @@
                     </div>
                     <a-menu slot="overlay">
                         <a-menu-item key="0">
-                            <router-link :to="{ name: 'AdminUsersProfile' }">My Profile</router-link>
+                            <router-link :to="{ name: 'admin.profile' }">My Profile</router-link>
                         </a-menu-item>
                         <a-menu-divider />
                         <a-menu-item key="1" @click="logout">

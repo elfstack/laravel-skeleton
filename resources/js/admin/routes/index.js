@@ -20,47 +20,44 @@ const router = new VueRouter({
             children: [
                 {
                     path: '',
-                    name: 'Dashboard',
+                    name: 'admin.dashboard',
                     component: () => import('../pages/dashboard/Index')
                 },
                 {
                     path: 'profile',
-                    name: 'AdminUsersProfile',
+                    name: 'admin.profile',
                     component: () => import('../pages/AdminUsers/Profile')
                 },
                 {
                     path: 'manage-access/',
-                    name: 'ManageAccess',
                     component: { render: h => h('router-view') },
                     children: [
                         {
                             path: 'admin-users/',
                             component: { render: h => h('router-view') },
-                            name: 'AdminUsers',
                             meta: {
                                 permission: 'admin.admin-users'
                             },
                             children: [
                                 {
                                     path: '/',
-                                    name: 'AdminUsersIndex',
+                                    name: 'admin.manage-access.admin-users.index',
                                     component: () => import('../pages/AdminUsers/Index')
                                 },
                                 {
                                     path: ':id(\\d+)',
-                                    name: 'AdminUsersShow',
+                                    name: 'admin.manage-access.admin-users.show',
                                     component: () => import('../pages/AdminUsers/Show')
                                 },
                                 {
                                     path: 'create',
-                                    name: 'AdminUsersCreate',
+                                    name: 'admin.manage-access.admin-users.create',
                                     component: () => import('../pages/AdminUsers/Create')
                                 },
                             ]
                         },
                         {
                             path: 'roles/',
-                            name: 'Roles',
                             component: { render: h => h('router-view') },
                             meta: {
                                 permission: 'admin.roles'
@@ -68,12 +65,12 @@ const router = new VueRouter({
                             children: [
                                 {
                                     path: '/',
-                                    name: 'RolesIndex',
+                                    name: 'admin.manage-access.roles.index',
                                     component: () => import('../pages/Roles/Index'),
                                     children: [
                                         {
                                             path: ':id',
-                                            name: 'RoleShow',
+                                            name: 'admin.manage-access.roles.index.show',
                                             component: () => import('../pages/Roles/Show')
                                         }
                                     ]
@@ -82,7 +79,6 @@ const router = new VueRouter({
                         },
                         {
                             path: 'audits/',
-                            name: 'Audits',
                             component: { render: h => h('router-view') },
                             meta: {
                                 permission: 'admin.audits'
@@ -90,10 +86,29 @@ const router = new VueRouter({
                             children: [
                                 {
                                     path: '/',
-                                    name: 'AuditsIndex',
+                                    name: 'admin.manage-access.audits.index',
                                     component: () => import('../pages/Audits/Index')
                                 }
                             ]
+                        }
+                    ]
+                },
+                {
+                    path: 'site-settings/',
+                    component: { render: h => h('router-view') },
+                    meta: {
+                        permission: 'admin.settings'
+                    },
+                    children: [
+                        {
+                            path: 'site-info',
+                            name: 'admin.site-settings.site-info',
+                            component: () => import('../pages/Settings/Info')
+                        },
+                        {
+                            path: 'storage',
+                            name: 'admin.site-settings.storage',
+                            component: () => import('../pages/Settings/Storage')
                         }
                     ]
                 },
