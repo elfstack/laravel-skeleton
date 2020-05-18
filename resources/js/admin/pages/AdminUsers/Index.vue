@@ -13,10 +13,6 @@
 
         <div class="p3">
             <a-card>
-                <listing
-                    :api="adminUserListingApi"
-                    :columns="columns"
-                    inline-template>
                     <div>
                         <a-form>
                             <a-form-item>
@@ -30,7 +26,7 @@
                         </a-form>
                     <a-table
                         @change="handleChange"
-                        :pagination="pagination"
+                        :pagination="listing.pagination"
                         :loading="loading"
                         :columns="columns"
                         row-key="id"
@@ -43,19 +39,20 @@
                             </span>
                     </a-table>
                     </div>
-                </listing>
             </a-card>
         </div>
     </div>
 </template>
 
 <script>
-    import adminUser from "../../../api/admin/adminUser";
+    import adminUser from "../../../api/admin/adminUser"
+    import listing from '../../../common/mixins/listing'
     export default {
         name: "Index",
+        mixins: [ listing ],
         data () {
             return {
-                adminUserListingApi: adminUser.index,
+                api: adminUser.index,
                 columns: [
                     { dataIndex: 'id', key: 'id', title: 'ID', sorter: true },
                     { dataIndex: 'name', key: 'name', title: 'Name' },

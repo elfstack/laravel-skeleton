@@ -2,83 +2,72 @@
     <div>
         <a-page-header title="Action Log">
         </a-page-header>
-        <listing
-            :api="api"
-            :columns="columns"
-            :binding="{
-                        actionColour: actionColour
-                    }"
-            inline-template>
+        <a-card :bordered="false">
             <div>
-                <a-card :bordered="false">
-                    <div>
-                        <a-form-model>
-                            <a-row>
-                                <a-col :span="12">
-                                    <a-form-model-item label="Range">
-                                        <a-range-picker
-                                            :show-time="{ format: 'HH:mm' }"
-                                            format="YYYY-MM-DD HH:mm"
-                                            :placeholder="['Start Time', 'End Time']"
-                                            @change=""
-                                            @ok="onOk"
-                                        />
-                                    </a-form-model-item>
-                                </a-col>
-
-                                <a-col :span="12">
-                                    <a-form-model-item label="User">
-                                        <a-input></a-input>
-                                    </a-form-model-item>
-                                </a-col>
-                            </a-row>
-
-                            <a-form-model-item label="Type">
-                                <a-tag color="green">Created</a-tag>
-                                <a-tag color="blue">Updated</a-tag>
-                                <a-tag color="red">Deleted</a-tag>
+                <a-form-model layout="inline">
+                    <a-row>
+                        <a-col :span="12">
+                            <a-form-model-item label="Range">
+                                <a-range-picker
+                                    :show-time="{ format: 'HH:mm' }"
+                                    format="YYYY-MM-DD HH:mm"
+                                    :placeholder="['Start Time', 'End Time']"
+                                    @ok="filterRange"
+                                />
                             </a-form-model-item>
-                        </a-form-model>
-                    </div>
-                </a-card>
-                <div class="p3">
-                    <a-card>
-                        <a-table
-                            @change="handleChange"
-                            :pagination="pagination"
-                            :loading="loading"
-                            :columns="columns"
-                            row-key="id"
-                            :data-source="data"
-                        >
-                            <template slot="time" slot-scope="text">
-                                {{ text | moment('YYYY-MM-DD HH:mm:ss')}}
-                            </template>
-                            <template slot="on" slot-scope="text">
-                                <a-tag color="blue">{{ text }}</a-tag>
-                            </template>
+                        </a-col>
 
-                            <template #event="text">
-                                <a-tag :color="binding['actionColour'][text]">{{ text }}</a-tag>
-                            </template>
+                        <a-col :span="12">
+                            <a-form-model-item label="Type">
+                                <a-tag
+                                    :key="type"
+                                    v-for="type in [ 'created', 'updated', 'deleted']"
+                                    :color="actionColour[type]"
+                                    @click="filter('event', [type])"
+                                >
+                                    {{ type }}
+                                </a-tag>
+                            </a-form-model-item>
+                        </a-col>
+                    </a-row>
 
-                        </a-table>
-                    </a-card>
-                </div>
+                </a-form-model>
             </div>
-        </listing>
+        </a-card>
+        <div class="p3">
+            <a-card>
+                <a-table
+                    @change="handleChange"
+                    :pagination="listing.pagination"
+                    :loading="loading"
+                    :columns="columns"
+                    row-key="id"
+                    :data-source="data"
+                >
+                    <template slot="time" slot-scope="text">
+                        {{ text | moment('YYYY-MM-DD HH:mm:ss')}}
+                    </template>
+                    <template slot="on" slot-scope="text">
+                        <a-tag color="blue">{{ text }}</a-tag>
+                    </template>
+
+                    <template #event="text">
+                        <a-tag :color="actionColour[text]">{{ text }}</a-tag>
+                    </template>
+
+                </a-table>
+            </a-card>
+        </div>
     </div>
 </template>
 
 <script>
-    import listing from "../../../common/listing";
+    import listing from "../../../common/mixins/listing";
     import audit from "../../../api/admin/audit";
 
     export default {
         name: "Index",
-        components: {
-            listing
-        },
+        mixins: [listing],
         data() {
             return {
                 api: audit.index,
@@ -105,6 +94,15 @@
                     updated: 'blue',
                     deleted: 'red'
                 }
+            }
+        },
+        methods: {
+            filterRange (dates) {
+                this.listing.range = {
+                    from: dates[0],
+                    to: dates[1]
+                }
+                this.fetchData()
             }
         }
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Utils\Listing;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use OwenIt\Auditing\Models\Audit;
 
@@ -18,11 +19,26 @@ class AuditController extends Controller
      */
     public function index(Request $request)
     {
+        $hasTimeFilter = $request->has('from') && $request->has('to');
+
+        $range = [];
+
+        if ($hasTimeFilter) {
+            $range = [
+                Carbon::parse($request->input('from')),
+                Carbon::parse($request->input('to'))
+            ];
+        }
+
         return Listing::create(Audit::class)
-            ->attachFiltering(['user_id', 'tags', 'created_at', 'updated_at', 'type'])
+            ->attachFiltering(['user_id', 'tags', 'event'])
             ->attachSorting(['created_at'], 'created_at', 'desc')
-            ->modifyQuery(function ($query) {
+            ->modifyQuery(function ($query) use ($hasTimeFilter, $range){
+                // TODO: filter user output
                 $query->with('user');
+                if ($hasTimeFilter) {
+                    $query->whereBetween('created_at', $range);
+                }
             })
             ->get($request);
     }

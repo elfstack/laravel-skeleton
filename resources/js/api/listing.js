@@ -1,6 +1,7 @@
-export default function index ({ pagination, filters, sorter, keyword }, api) {
+import {isEmptyObject} from "ant-design-vue/lib/vc-form/src/utils";
+
+export default function index ({ pagination, filters, sorter, keyword }, api, modifier=null) {
     const query = {}
-    console.log(filters)
     if (sorter.field) {
         query.orderBy = sorter.field
         query.direction = sorter.order === 'descend' ? 'desc' : 'asc'
@@ -16,6 +17,18 @@ export default function index ({ pagination, filters, sorter, keyword }, api) {
 
     if (keyword) {
         query.keyword = keyword
+    }
+
+    if (!isEmptyObject(filters)) {
+        let filterQuery = []
+        for (const column in filters) {
+            filterQuery.push(`${column}:${filters[column].join(',')}`)
+        }
+        query.filter = filterQuery.join(';')
+    }
+
+    if (modifier) {
+        modifier(query)
     }
 
     return window.axios.get(api, { params: query });
