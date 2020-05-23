@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Notifications\AdminUserResetPasswordNotification;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use OwenIt\Auditing\Contracts\Auditable as Auditable;
@@ -15,6 +17,7 @@ class AdminUser extends Authenticatable implements Auditable, HasMedia
     use Notifiable;
     use HasRoles;
     use InteractsWithMedia;
+    use CanResetPassword;
     use \OwenIt\Auditing\Auditable;
 
     /**
@@ -67,5 +70,10 @@ class AdminUser extends Authenticatable implements Auditable, HasMedia
              ->width(200)
              ->height(200)
              ->performOnCollections('avatars');
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminUserResetPasswordNotification($token));
     }
 }

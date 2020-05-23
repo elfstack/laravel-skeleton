@@ -101,7 +101,6 @@ return [
             'throttle' => 60,
         ],
 
-        // TODO: add this table
         'admin_users' => [
             'provider' => 'admin_users',
             'table' => 'admin_password_resets',
