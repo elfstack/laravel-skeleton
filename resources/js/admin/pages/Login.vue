@@ -20,9 +20,9 @@
                     </a-input-password>
                 </a-form-model-item>
                 <a-form-model-item>
-                    <a class="login-form-forgot" href="">
+                    <router-link class="login-form-forgot" :to="{ name: 'admin.reset-password' }">
                         Forgot password
-                    </a>
+                    </router-link>
                     <a-button type="primary" html-type="submit" @click="submit">
                         Log in
                     </a-button>

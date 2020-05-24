@@ -30,5 +30,17 @@ export default {
     },
     updateAvatar(adminUser, path) {
         return window.axios.put(`/admin-users/${adminUser.id}/avatar`, { path: path })
+    },
+    sendVerificationEmail(email) {
+        return window.axios.post('/admin-users/password/reset-token', { email: email })
+    },
+    verifyPasswordResetToken(credential) {
+        return window.axios.post('/admin-users/password/reset-token/verify', credential)
+    },
+    resetPassword(password, credential) {
+        return window.axios.put('/admin-users/password', {
+            password: password,
+            ...credential
+        })
     }
 }

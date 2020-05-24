@@ -8,8 +8,19 @@ const router = new VueRouter({
     routes: [
         {
             path: '/login',
+            // TODO: rename to admin.login
             name: 'Login',
             component: () => import('../pages/Login')
+        },
+        {
+            path: '/reset-password',
+            name: 'admin.reset-password',
+            component: () => import('../pages/Auth/ResetPassword')
+        },
+        {
+            path: '/password-reset/:token/:email',
+            name: 'admin.password-reset',
+            component: () => import('../pages/Auth/PasswordReset')
         },
         {
             path: '/',
