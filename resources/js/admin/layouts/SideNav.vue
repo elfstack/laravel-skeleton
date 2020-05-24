@@ -4,7 +4,13 @@
         v-model="collapsed"
         collapsible
     >
-        <div class="logo h4 center" style="color: #fff;">{{ !collapsed ? 'Laravel Skeleton' : 'LS' }}</div>
+        <router-link
+            to="/"
+            tag="div"
+            class="logo h4 center" style="color: #fff;"
+        >
+            {{ !collapsed ? 'Laravel Skeleton' : 'LS' }}
+        </router-link>
         <a-menu
             theme="dark"
             :open-keys.sync="openKeys"

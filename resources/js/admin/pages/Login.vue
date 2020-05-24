@@ -10,12 +10,12 @@
             />
             <a-form-model ref="login-form" :model="form" :rules="rules">
                 <a-form-model-item has-feedback prop="email">
-                    <a-input v-model="form.email" type="email" size="large">
+                    <a-input v-model="form.email" type="email" size="large" placeholder="Email">
                         <a-icon slot="prefix" type="user" style="color:rgba(0,0,0,.25)" />
                     </a-input>
                 </a-form-model-item>
                 <a-form-model-item has-feedback prop="password">
-                    <a-input-password v-model="form.password" size="large">
+                    <a-input-password v-model="form.password" size="large" placeholder="Password">
                         <a-icon slot="prefix" type="lock" style="color:rgba(0,0,0,.25)" />
                     </a-input-password>
                 </a-form-model-item>
