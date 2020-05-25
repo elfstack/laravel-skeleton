@@ -53,6 +53,13 @@
                 collapsed: false
             }
         },
+        watch: {
+            'collapsed': function (val) {
+                if (val === true) {
+                   this.openKeys = []
+                }
+            }
+        },
         created() {
             const name = this.$route.name.split('.')
             this.openKeys = [name[1]]
