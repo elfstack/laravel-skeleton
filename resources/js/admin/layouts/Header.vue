@@ -1,5 +1,5 @@
 <template>
-    <a-layout-header class="header" style="padding: 0 24px">
+    <a-layout-header class="header">
         <a-row type="flex"
                justify="space-between">
             <a-col></a-col>
@@ -48,6 +48,8 @@
 .header {
     background: #fff;
     top: 0;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075) !important
+    padding: 0 24px;
+    z-index: 3;
+    position: sticky;
 }
 </style>

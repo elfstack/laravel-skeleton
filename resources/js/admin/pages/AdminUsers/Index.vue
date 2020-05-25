@@ -11,7 +11,7 @@
             </template>
         </a-page-header>
 
-        <div class="p3">
+        <div class="p2">
             <a-card>
                     <div>
                         <a-form>
@@ -35,7 +35,7 @@
                                 <a-tag color="blue" v-for="role in record.roles" :key="role.id">{{ role.name }}</a-tag>
                             </span>
                             <span slot="action" slot-scope="text,record">
-                                <router-link :to="{ name: 'AdminUsersShow', params: { id: record.id }}">Details</router-link>
+                                <router-link :to="{ name: 'admin.manage-access.admin-users.show', params: { id: record.id }}">Details</router-link>
                             </span>
                     </a-table>
                     </div>

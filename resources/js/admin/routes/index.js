@@ -31,7 +31,7 @@ const router = new VueRouter({
             children: [
                 {
                     path: '',
-                    name: 'admin.Dashboard',
+                    name: 'admin.dashboard',
                     component: () => import('../pages/Dashboard/Index')
                 },
                 {

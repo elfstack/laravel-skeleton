@@ -21,9 +21,9 @@
                             <a-form-model-item label="Type">
                                 <a-tag
                                     :key="type"
-                                    v-for="type in [ 'created', 'updated', 'deleted']"
+                                    v-for="type in Object.keys(actionColour)"
                                     :color="actionColour[type]"
-                                    @click="filter('event', [type])"
+                                    @click="filterTag('event', [type])"
                                 >
                                     {{ type }}
                                 </a-tag>
@@ -34,7 +34,7 @@
                 </a-form-model>
             </div>
         </a-card>
-        <div class="p3">
+        <div class="p2">
             <a-card>
                 <a-table
                     @change="handleChange"
@@ -90,6 +90,7 @@
                     {dataIndex: 'description', key: 'description', title: 'Description'},
                 ],
                 actionColour: {
+                    all: 'cyan',
                     created: 'green',
                     updated: 'blue',
                     deleted: 'red'
@@ -103,6 +104,14 @@
                     to: dates[1]
                 }
                 this.fetchData()
+            },
+            filterTag (column, values) {
+                if (values.includes('all')) {
+                    this.clearFilter(column)
+                    return
+                }
+
+                this.filter(column, values)
             }
         }
     }

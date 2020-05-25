@@ -52,9 +52,11 @@ const listing = {
         },
         clearFilter (column) {
             delete this.listing.filters[column]
+            this.fetchData()
         },
         clearAllFilter () {
             this.listing.filters = []
+            this.fetchData()
         }
     }
 }
