@@ -8,10 +8,12 @@ import 'ant-design-vue/dist/antd.css'
 import AntDesign from 'ant-design-vue'
 import VueMoment from 'vue-moment'
 import Viser from 'viser-vue'
+import VueMeta from 'vue-meta'
 
 Vue.use(AntDesign)
 Vue.use(VueMoment)
 Vue.use(Viser)
+Vue.use(VueMeta)
 
 const app = new Vue({
     el: '#app',

@@ -21,6 +21,12 @@
             'admin-header': Header,
             'admin-side-nav': SideNav
         },
+        metaInfo: {
+            // if no subcomponents specify a metaInfo.title, this title will be used
+            title: 'Page',
+            // all titles will be injected into this template
+            titleTemplate: '%s | Laravel Skeleton'
+        },
         data () {
             return {
                 loading: true
