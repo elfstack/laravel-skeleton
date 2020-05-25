@@ -108,7 +108,7 @@ class Listing
      * @param array $sortableColumns
      * @return $this
      */
-    public function attachSorting(array $sortableColumns, string $defaultColumn='id', string $defaultOrder='desc')
+    public function attachSorting(array $sortableColumns, string $defaultColumn='id', string $defaultOrder='asc')
     {
         $this->sortableColumns = $sortableColumns;
         $this->defaultColumn = $defaultColumn;

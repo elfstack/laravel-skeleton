@@ -22,9 +22,16 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+            'remember' => 'sometimes|boolean'
+        ]);
 
-        if (Auth::guard('admin_api')->attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        $remember = $request->input('remember');
+
+        if (Auth::guard('admin_api')->attempt($credentials, $remember)) {
             return ['message' => 'success'];
         }
 

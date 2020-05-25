@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', function () {
-    return view('admin');
+    return view('admin-app');
 });
 
 // TODO: change path prefix to /admin/api/admin-users/login
