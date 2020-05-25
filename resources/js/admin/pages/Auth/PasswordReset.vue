@@ -1,8 +1,8 @@
 <template>
     <a-layout>
-        <a-row type="flex" justify="space-around" align="middle">
-            <a-col :span="8">
-                <a-card title="Reset Password">
+        <a-row type="flex" justify="space-around" align="middle" class="h-100 p2">
+            <a-col :xs="24" :md="16" :lg="12">
+                <a-card title="Reset Your Password">
                     <a-form-model ref="form" :rules="rules" :model="form">
                         <a-form-model-item label="Password" prop="password">
                             <a-input-password v-model="form.password"></a-input-password>
@@ -23,6 +23,9 @@
     import adminUser from "../../../api/admin/adminUser"
     export default {
         name: "PasswordReset",
+        metaInfo: {
+            title: 'Reset Your Password | Laravel Skeleton'
+        },
         data () {
             return {
                 form: {
@@ -67,5 +70,7 @@
 </script>
 
 <style scoped>
-
+.h-100 {
+    height: 100%;
+}
 </style>

@@ -136,7 +136,7 @@ class ResetAdminUserPasswordTest extends TestCase
             'password' => 'secret'
         ]);
 
-        $response->assertStatus(500)
+        $response->assertStatus(410)
                  ->assertJson(['message' => 'failed']);
     }
 
@@ -151,7 +151,7 @@ class ResetAdminUserPasswordTest extends TestCase
             'password' => 'secret'
         ]);
 
-        $response->assertStatus(500)
+        $response->assertStatus(410)
                  ->assertJson(['message' => 'failed']);
     }
 }

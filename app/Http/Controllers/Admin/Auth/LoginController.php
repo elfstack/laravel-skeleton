@@ -121,7 +121,7 @@ class LoginController extends Controller
         if ($response != Password::PASSWORD_RESET) {
             return response()->json([
                 'message' => 'failed'
-            ], 500);
+            ], 410);
         }
 
         return response()->json([

@@ -5,4 +5,8 @@ body > .ant-layout {
   border-bottom: 1px solid #ebedf0;
   border-top: 1px solid #ebedf0;
   background: #fff !important;
+  position: -webkit-sticky !important;
+  position: sticky !important;
+  z-index: 4;
+  top: 0;
 }
