@@ -25,7 +25,7 @@ const action = debounce(function action (status) {
         case 401:
             if (router.currentRoute.name !== 'Login') {
                 message.warning('Logged out')
-                router.push({ name: 'Login' });
+                router.push({ name: 'Login' })
             }
             break;
         case 403:

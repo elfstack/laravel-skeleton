@@ -31,6 +31,9 @@
         components: {
             'admin-users-form': Form
         },
+        metaInfo: {
+            title: 'Create Admin User'
+        },
         data () {
             return {
                 adminUser: {

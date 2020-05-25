@@ -11,7 +11,10 @@
 
 <script>
     export default {
-        name: "Info"
+        name: "Info",
+        metaInfo: {
+            title: 'Info'
+        }
     }
 </script>
 

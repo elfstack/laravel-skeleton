@@ -40,7 +40,12 @@
         components: {
             'admin-users-form': Form
         },
-        data() {
+        metaInfo () {
+            return {
+                title: this.adminUser.name
+            }
+        },
+        data () {
             return {
                 loading: false,
                 adminUser: {
@@ -52,15 +57,15 @@
                 api: adminUser.update
             }
         },
-        beforeRouteEnter(to, from, next) {
+        beforeRouteEnter (to, from, next) {
             next(vm => vm.fetchData(to.params.id))
         },
-        beforeRouteUpdate(to, from, next) {
+        beforeRouteUpdate (to, from, next) {
             this.fetchData(to.params.id)
             next()
         },
         methods: {
-            fetchData(id) {
+            fetchData (id) {
                 adminUser.show(id).then(({data}) => {
                     this.adminUser = data.admin_user
                 }).catch(error => {
@@ -69,12 +74,12 @@
                     }
                 })
             },
-            submit() {
+            submit () {
                 this.$refs['admin-users-form'].$submit().then(({data}) => {
                     this.$message.success('Updated')
                 })
             },
-            remove() {
+            remove () {
                 const _that = this
                 this.$confirm({
                     title: 'Do you want to delete this admin user?',

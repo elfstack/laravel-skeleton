@@ -70,6 +70,9 @@
         components: {
             'admin-users-form': Form
         },
+        metaInfo: {
+            title: 'Profile'
+        },
         data() {
             return {
                 avatarModalVisible: false,

@@ -11,8 +11,8 @@
 </template>
 <script>
     export default {
-        data() {
-            return {};
-        },
+        metaInfo: {
+            title: '404'
+        }
     };
 </script>

@@ -52,6 +52,9 @@
     import role from '../../../api/admin/role'
     export default {
         name: "Index",
+        metaInfo: {
+            title: 'Roles & Permissions'
+        },
         data () {
             return {
                 roles: [],

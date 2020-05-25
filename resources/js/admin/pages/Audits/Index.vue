@@ -68,6 +68,9 @@
     export default {
         name: "Index",
         mixins: [listing],
+        metaInfo: {
+            title: 'Action Log'
+        },
         data() {
             return {
                 api: audit.index,

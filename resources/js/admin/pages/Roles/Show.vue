@@ -49,6 +49,11 @@
     import permission from '../../../api/admin/permission'
     export default {
         name: "Show",
+        metaInfo () {
+            return {
+                title: this.role.name
+            }
+        },
         data () {
             return {
                 role: {

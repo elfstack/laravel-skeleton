@@ -40,6 +40,9 @@
 
     export default {
         name: "Storage",
+        metaInfo: {
+            title: 'Manage Storage'
+        },
         data() {
             return {
                 loading: true,

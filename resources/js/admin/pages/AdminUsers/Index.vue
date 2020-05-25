@@ -50,6 +50,9 @@
     export default {
         name: "Index",
         mixins: [ listing ],
+        metaInfo: {
+            title: 'Admin Users'
+        },
         data () {
             return {
                 api: adminUser.index,
